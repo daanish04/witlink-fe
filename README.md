@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WitLink Frontend
+
+This is the frontend for **WitLink**, a real-time multiplayer quiz platform. Built with Next.js, React, and Tailwind CSS.
+
+## Features
+
+- **Real-time Multiplayer**: Join or create quiz rooms and play with friends.
+- **Player Registration**: Enter your name to start playing.
+- **Room Management**: Create public/private rooms, set topic, difficulty, and max players.
+- **Game Flow**:
+  - Lobby with room rules and player list.
+  - Host controls game start and settings.
+  - Real-time question answering with timers.
+  - Automatic leaderboard at game end.
+- **Socket.io Integration**: Live updates for player actions, scores, and game state.
+- **Responsive UI**: Modern, mobile-friendly design using Tailwind CSS.
+- **Error Handling**: User-friendly error and status messages.
+- **(Optional) Chat**: Chat component included (can be enabled for in-room chat).
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set environment variable for backend URL (if not using default):
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+   - Create a `.env.local` file:
+     ```
+     NEXT_PUBLIC_SOCKET_URL=http://localhost:8000/
+     ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Run the development server:
 
-## Learn More
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` – Start development server
+- `npm run build` – Build for production
+- `npm run start` – Start production server
+- `npm run lint` – Lint code
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Socket.io-client](https://socket.io/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Radix UI](https://www.radix-ui.com/docs/primitives/components/dialog)
+- [Sonner](https://sonner.emilkowal.ski/) (for toasts)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Folder Structure
+
+- `app/` – Main pages and routing
+- `components/` – UI and game logic components
+- `contexts/` – Socket context for real-time features
+- `lib/` – Utility functions
+- `globals.css` – Global styles
