@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${dynaPuff.className} antialiased`}>
         <SocketProvider>
-          <main className="bg-gradient-to-bl from-amber-50 to-blue-50 tex-black">
+          <main className="bg-gradient-to-bl from-red-300 to-indigo-700 tex-black">
             {children}
           </main>
           <Toaster richColors position="top-center" />

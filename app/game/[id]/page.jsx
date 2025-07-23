@@ -148,22 +148,22 @@ const GamePage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-clip">
       {/* Header */}
-      <header className="w-full py-3 px-6 bg-white border-b flex items-center justify-between">
-        <span className="text-2xl font-bold text-indigo-700">WitLink</span>
+      <header className="w-full py-3 px-6 bg-cyan-100 border-b flex items-center justify-between sticky top-0 z-10">
+        <span className="text-2xl font-bold text-orange-800">WitLink</span>
         <button
           onClick={handleLeaveRoom}
-          className="flex justify-center items-center cursor-pointer text-red-500 font-bold"
+          className="flex justify-center items-center cursor-pointer text-red-500"
         >
-          <LogOut className="h-6 w-6" />
+          <LogOut className="h-6 w-6" strokeWidth={2.5} />
         </button>
       </header>
       {/* Main Grid */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         {/* Sidebar: User List */}
-        <aside className="bg-blue-50 border-r w-1/4 min-w-[220px] max-w-xs p-4 grid-span-3">
-          <div className="flex flex-row justify-between items-center mb-4">
+        <aside className="relative bg-gradient-to-r from-pink-200 to-indigo-100 border-r w-1/4 min-w-[220px] max-w-xs p-3 grid-span-3 overflow-y-auto">
+          <div className="flex flex-row justify-between items-center mb-2">
             <h3 className="text-lg font-semibold">Players</h3>
             <button
               onClick={() => {
@@ -175,18 +175,18 @@ const GamePage = () => {
               Copy Room Id
             </button>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
             {room.players.map((player) => (
               <div
                 key={player.id}
                 className={`rounded-lg p-3 border flex flex-col gap-1 ${
                   player.id === socket.id
-                    ? "bg-purple-200 border-green-400"
-                    : "bg-white border-indigo-200"
+                    ? "bg-yellow-100 border-green-400"
+                    : "bg-cyan-100 border-indigo-200"
                 }`}
               >
                 {/* <span className="text-xs text-gray-500">ID: {player.id}</span> */}
-                <span className="flex flex-row gap-2 items-center font-bold text-gray-800">
+                <span className="flex flex-row gap-2 items-center font-bold text-neutral-800">
                   <ArrowRight className="h-4 w-4" /> {player.name}
                 </span>
                 <span className="text-sm text-blue-700 font-semibold">
@@ -200,7 +200,7 @@ const GamePage = () => {
           </div>
         </aside>
         {/* Main Content */}
-        <main className="flex-1 p-8 grid-span-7">
+        <main className="flex-1 p-8 grid-span-7 overflow-y-auto">
           {room.status === "WAITING" ? (
             <RoomRules
               room={room}

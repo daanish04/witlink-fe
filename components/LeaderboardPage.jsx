@@ -1,3 +1,4 @@
+import { Info, Trophy } from "lucide-react";
 import React from "react";
 
 const LeaderboardPage = ({ room, socket }) => {
@@ -15,18 +16,22 @@ const LeaderboardPage = ({ room, socket }) => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center h-full gap-6">
-      <h2 className="text-4xl font-bold text-green-700 mb-4">Game Over!</h2>
-      <h3 className="text-2xl font-semibold text-gray-800">
+    <div className="flex flex-col items-center justify-center gap-6">
+      <h2 className="text-4xl font-bold text-green-900 text-shadow-xs text-shadow-yellow-300 mb-4">
+        Game Over!
+      </h2>
+      <h3 className="text-2xl font-semibold text-neutral-900">
         Quiz on: {room.topic} ({room.difficulty})
       </h3>
-      <p className="text-xl text-gray-700">Your score: {currentPlayerScore}</p>
+      <p className="text-xl text-neutral-800">
+        Your score: {currentPlayerScore}
+      </p>
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 mt-6">
-        <h4 className="text-xl font-bold text-gray-800 mb-4 text-center">
-          Leaderboard
+        <h4 className="flex items-center gap-4 justify-center text-xl font-bold text-gray-800 mb-4 text-center">
+          Leaderboard <Trophy className="h-6 w-6 mb-1" strokeWidth={2.5} />
         </h4>
         {sortedPlayers.length > 0 ? (
-          <ul className="space-y-3">
+          <ul className="space-y-2">
             {sortedPlayers.map((player, index) => (
               <li
                 key={player.id}
@@ -34,7 +39,7 @@ const LeaderboardPage = ({ room, socket }) => {
                     ${
                       player.id === socket.id
                         ? "bg-blue-100 font-semibold border border-blue-400"
-                        : "bg-gray-50"
+                        : "bg-gray-100"
                     }
                   `}
               >
@@ -42,9 +47,6 @@ const LeaderboardPage = ({ room, socket }) => {
                   {index + 1}. {player.name}
                   {player.id === room.hostId && (
                     <span className="ml-2 text-xs text-green-600">(Host)</span>
-                  )}
-                  {player.id === socket.id && (
-                    <span className="ml-2 text-xs text-blue-600">(You)</span>
                   )}
                 </span>
                 <span className="text-lg text-gray-700">
@@ -59,13 +61,18 @@ const LeaderboardPage = ({ room, socket }) => {
           </p>
         )}
       </div>
-      {socket.id === room.hostId && (
+      {socket.id === room.hostId ? (
         <button
           onClick={handleGoBackToRoom}
-          className="mt-8 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors text-lg"
+          className="my-8 bg-indigo-700 text-white px-6 py-3 rounded-lg hover:bg-indigo-800 transition-colors text-lg"
         >
           Back to Room Rules Page
         </button>
+      ) : (
+        <span className="bg-yellow-50 border-b-4 border-yellow-400 text-red-600 p-4 rounded-lg shadow my-6 flex items-center gap-2">
+          <Info className="font-semibold h-5 w-5 text-yellow-500" />
+          Only Host can redirect back to Room Rules page
+        </span>
       )}
     </div>
   );

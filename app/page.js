@@ -14,10 +14,10 @@ const Home = () => {
     // <ChatPage />
     <div className="min-h-screen">
       <div className="pt-20 flex flex-col justify-center items-center gap-10">
-        <h1 className="text-9xl font-extrabold bg-gradient-to-tl from-red-800 via-purple-950 to-red-800 bg-clip-text text-transparent">
+        <h1 className="text-9xl font-extrabold bg-gradient-to-tl from-orange-800 via-rose-800 to-red-900 bg-clip-text text-transparent">
           WitLink
         </h1>
-        <p className="text-xl text-gray-500">
+        <p className="text-xl text-white text-center">
           Welcome to WitLink, the ultimate online quiz platform! Play live
           quizzes with your friends.
         </p>
@@ -30,7 +30,7 @@ const Home = () => {
         {/* Guide boxes in a flex row */}
         <div className="w-full flex flex-col md:flex-row justify-center items-stretch gap-6 mt-4">
           {/* How to Play Box */}
-          <div className="flex-1 bg-blue-50 border border-blue-300 rounded-2xl shadow-lg p-6 flex flex-col gap-3 min-w-[260px] max-w-xl mx-auto">
+          <div className="flex-1 bg-cyan-200 border-2 border-blue-300 rounded-2xl shadow-lg p-6 flex flex-col gap-3 min-w-[260px] max-w-xl mx-auto hover:scale-102 transition-all duration-300 ease-in-out">
             <h2 className="text-2xl font-bold text-indigo-700 mb-2">
               How to Play
             </h2>
@@ -49,7 +49,7 @@ const Home = () => {
             </ul>
           </div>
           {/* Host Controls Box */}
-          <div className="flex-1 bg-blue-50 border border-blue-300 rounded-2xl shadow-lg p-6 flex flex-col gap-3 min-w-[260px] max-w-xl mx-auto">
+          <div className="flex-1 bg-cyan-200 border-2 border-blue-300 rounded-2xl shadow-lg p-6 flex flex-col gap-3 min-w-[260px] max-w-xl mx-auto hover:scale-102 transition-all duration-300 ease-in-out">
             <h2 className="text-2xl font-bold text-blue-700 mb-2">
               Host Controls & Game Flow
             </h2>
@@ -73,7 +73,7 @@ const Home = () => {
         </div>
 
         {/* Warning about free server */}
-        <div className="w-full max-w-xl mb-5 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-4 rounded shadow mt-6">
+        <div className="w-full max-w-xl mb-5 bg-yellow-50 border-l-7 border-yellow-400 text-yellow-800 p-4 rounded-lg shadow mt-6">
           <div className="flex items-center gap-2 mb-1">
             <Info className="font-semibold h-5 w-5 text-yellow-500" />
             <span className="font-semibold">Note:</span>
