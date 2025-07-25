@@ -5,8 +5,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import LeaderboardPage from "./LeaderboardPage";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
-const QuestionsPage = ({ room, socket }) => {
+const QuestionsPage = ({ room, setRoom, socket }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [error, setError] = useState(null);
@@ -106,7 +107,8 @@ const QuestionsPage = ({ room, socket }) => {
         setTimeLeft(timePerQuestion[room.difficulty] || 30); // Reset timer
         setIsQuestionActive(true); // Activate next question
       } else {
-        // Game finished
+        // game finished, emit end game event to server
+        socket.emit("player-finished", room.id);
         toast.info("Game finished!");
         setShowLeaderboard(true); // Transition to leaderboard view
       }
@@ -138,20 +140,16 @@ const QuestionsPage = ({ room, socket }) => {
   }
 
   if (showLeaderboard) {
-    // Render Leaderboard component when game is finished
-    // You'll need to pass actual score/game results here from your game state/socket
-    return <LeaderboardPage room={room} socket={socket} />;
+    return <LeaderboardPage room={room} setRoom={setRoom} socket={socket} />;
   }
 
   if (questions.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-6">
         <h2 className="text-3xl font-bold text-indigo-700">
-          No Questions Available
+          Loading Questions...
         </h2>
-        <p className="text-lg text-gray-700">
-          Please check your topic and difficulty settings or try again.
-        </p>
+        <Loader className="h-8 w-8 animate-spin text-indigo-700" />
         <Link
           href={"/"}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"

@@ -1,13 +1,28 @@
 import { Info, Trophy } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
-const LeaderboardPage = ({ room, socket }) => {
+const LeaderboardPage = ({ room, setRoom, socket }) => {
   const currentPlayer = room.players.find((player) => player.id === socket.id);
   const currentPlayerScore = currentPlayer ? currentPlayer.score ?? 0 : 0;
 
   const sortedPlayers = [...room.players].sort(
     (a, b) => (b.score ?? 0) - (a.score ?? 0)
   );
+
+  useEffect(() => {
+    if (!socket) return;
+    const handlePlayerFinished = (room) => {
+      setRoom((prev) => ({
+        ...prev,
+        ...room,
+      }));
+    };
+    socket.on("player-finished", handlePlayerFinished);
+
+    return () => {
+      socket.off("player-finished", handlePlayerFinished);
+    };
+  }, [socket]);
 
   const handleGoBackToRoom = () => {
     if (!socket) return;
@@ -35,7 +50,7 @@ const LeaderboardPage = ({ room, socket }) => {
             {sortedPlayers.map((player, index) => (
               <li
                 key={player.id}
-                className={`flex justify-between items-center p-3 rounded-md transition-colors
+                className={`relative flex justify-between items-center p-3 rounded-md transition-colors
                     ${
                       player.id === socket.id
                         ? "bg-blue-100 font-semibold border border-blue-400"
@@ -49,6 +64,11 @@ const LeaderboardPage = ({ room, socket }) => {
                     <span className="ml-2 text-xs text-green-600">(Host)</span>
                   )}
                 </span>
+                {player.status === "INGAME" && (
+                  <span className="absolute left-60 px-1 py-0.5 border border-yellow-400 bg-yellow-200 text-yellow-600 rounded-lg text-sm">
+                    In Game
+                  </span>
+                )}
                 <span className="text-lg text-gray-700">
                   Score: {player.score ?? 0}
                 </span>

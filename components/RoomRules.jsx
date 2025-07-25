@@ -23,8 +23,8 @@ const RoomRules = ({ room, setRoom, isHost, socket, setLoading, loading }) => {
 
   return (
     <div className="flex flex-col gap-6 justify-center items-center">
-      <h2 className="text-3xl font-bold text-neutral-950">Set Room Rules</h2>
-      <form className="flex flex-col gap-4" onSubmit={handleSave}>
+      <h2 className="text-4xl font-bold text-neutral-950">Set Room Rules</h2>
+      <form className="flex flex-col gap-4 md:w-md w-fit" onSubmit={handleSave}>
         <label
           className="block text-neutral-950 text-md font-medium"
           htmlFor="topic"
@@ -76,21 +76,34 @@ const RoomRules = ({ room, setRoom, isHost, socket, setLoading, loading }) => {
           }}
           disabled={!isHost}
         >
-          {[...Array(10)].map((_, i) => (
-            <option key={i + 1} value={i + 1}>
-              {i + 1}
-            </option>
-          ))}
+          {[...Array(10)].map((_, i) => {
+            const value = i + 1;
+            const currentPlayerCount = room.players?.length || 0;
+            return (
+              <option
+                key={i + 1}
+                value={i + 1}
+                disabled={currentPlayerCount > value}
+              >
+                {value}
+              </option>
+            );
+          })}
         </select>
         {isHost && (
           <button
             type="submit"
-            className="bg-blue-500 text-gray-100 px-2 py-1 border-2 border-blue-400 hover:bg-blue-600 cursor-pointer rounded"
+            disabled={loading}
+            className="bg-blue-500 text-gray-100 px-4 py-1.5 border-2 border-blue-400 hover:bg-blue-600 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 rounded"
           >
             Save
           </button>
         )}
       </form>
+      {isHost && (
+        // make a separator line
+        <div className="w-md h-0.5 bg-gradient-to-r from-transparent via-indigo-900 to-transparent" />
+      )}
       {isHost && (
         <button
           disabled={loading}

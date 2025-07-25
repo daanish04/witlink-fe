@@ -211,7 +211,7 @@ const GamePage = () => {
               loading={loading}
             />
           ) : (
-            <QuestionsPage room={room} socket={socket} />
+            <QuestionsPage room={room} setRoom={setRoom} socket={socket} />
           )}
         </main>
       </div>
