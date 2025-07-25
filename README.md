@@ -13,9 +13,9 @@ This is the frontend for **WitLink**, a real-time multiplayer quiz platform. Bui
   - Real-time question answering with timers.
   - Automatic leaderboard at game end.
 - **Socket.io Integration**: Live updates for player actions, scores, and game state.
-- **Responsive UI**: Modern, mobile-friendly design using Tailwind CSS.
 - **Error Handling**: User-friendly error and status messages.
-- **(Optional) Chat**: Chat component included (can be enabled for in-room chat).
+- **(Future) Responsive UI**: Modern, mobile-friendly design using Tailwind CSS.
+- **(Future) Chat**: In-room chat for players.
 
 ## Getting Started
 
