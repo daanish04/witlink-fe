@@ -89,13 +89,18 @@ const QuestionsPage = ({ room, setRoom, socket }) => {
     const playerAnswer = selectedAnswer; // Will be null if timer ran out without selection
 
     // Emit answer to server via Socket.IO
-    if (socket) {
-      socket.emit("submit-answer", {
-        roomId: room.id,
-        answer: playerAnswer, // Send the selected answer (or null)
-        correctAnswer: currentQuestion.correctAnswer,
-        isCorrect: playerAnswer === currentQuestion.correctAnswer, // Calculate correctness
-      });
+    if (socket && room.id) {
+      try {
+        socket.emit("submit-answer", {
+          roomId: room.id,
+          answer: playerAnswer, // Send the selected answer (or null)
+          correctAnswer: currentQuestion.correctAnswer,
+          isCorrect: playerAnswer === currentQuestion.correctAnswer,
+        });
+      } catch (error) {
+        console.error("Error submitting answer:", error);
+        toast.error("Failed to submit answer");
+      }
     }
 
     // Determine next action after a short delay to allow for visual feedback/processing

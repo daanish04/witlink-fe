@@ -19,6 +19,8 @@ export const SocketProvider = ({ children }) => {
         reconnection: true,
         reconnectionAttempts: Infinity,
         reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        timeout: 20000,
         auth: { name: playerName },
       });
 
@@ -32,6 +34,10 @@ export const SocketProvider = ({ children }) => {
 
       s.on("disconnect", () => {
         console.log("Socket disconnected", s.id);
+      });
+
+      s.on("reconnect", (attemptNumber) => {
+        console.log("Socket reconnected after", attemptNumber, "attempts");
       });
     }
   };

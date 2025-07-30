@@ -138,6 +138,7 @@ const GamePage = () => {
       socket.off("back-to-room", handleBackToRoom);
       socket.off("room-closed", handleRoomClosed);
       socket.off("room-error", handleRoomError);
+      socket.off("disconnect");
     };
   }, [socket, roomId]);
 
