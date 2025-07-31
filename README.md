@@ -66,7 +66,8 @@ This is the frontend for **WitLink**, a real-time multiplayer quiz platform. Bui
 
 - Live room chat and Emoji reactions
 - Mobile responsiveness
-- UI enhancements (Progress bars, Leaderboard animations, etc)
+- UI enhancements (Progress bars, Leaderboard animations, room themes)
 - Confetti arts
 - Results exports (as screenshots or similar?)
 - Better handling of game ending (blocking host control until all players finish?)
+- Game modes - (Survival, Blitz, etc)
