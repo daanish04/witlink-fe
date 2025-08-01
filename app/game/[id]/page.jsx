@@ -87,6 +87,11 @@ const GamePage = () => {
     };
     socket.on("room-saved", handleRoomSaved);
 
+    const handleGameStarting = () => {
+      toast.info("Game is starting soon...");
+    };
+    socket.on("game-starting", handleGameStarting);
+
     const handleGameStarted = (room) => {
       toast.success("Game Started");
       setLoading(false);
@@ -134,6 +139,7 @@ const GamePage = () => {
       socket.off("player-joined", handlePlayerJoined);
       socket.off("room-left", handlePlayerLeft);
       socket.off("room-saved", handleRoomSaved);
+      socket.off("game-starting", handleGameStarting);
       socket.off("game-started", handleGameStarted);
       socket.off("answer-correct", handleAnswerCorrect);
       socket.off("back-to-room", handleBackToRoom);
