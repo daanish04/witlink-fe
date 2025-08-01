@@ -57,7 +57,7 @@ const SetGamePage = ({ player }) => {
   };
   return (
     <div>
-      <div className="px-12 py-8 border border-indigo-700 w-md bg-blue-50 shadow-lg shadow-blue-300 flex flex-col justify-center items-center gap-4 rounded-2xl">
+      <div className="sm:px-12 sm:py-8 py-8 px-6 border border-indigo-700 sm:w-md bg-blue-50 shadow-lg shadow-blue-300 flex flex-col justify-center items-center sm:gap-4 gap-2 rounded-2xl">
         <p className="text-blue-600 font-semibold text-xl">Hello, {player}</p>
         <Dialog>
           <DialogTrigger className="w-full bg-blue-500 text-gray-100 px-2 py-1 border-2 border-blue-400 hover:bg-blue-600 cursor-pointer rounded">

@@ -10,7 +10,7 @@ const PlayerNamePage = () => {
     connectSocket(name);
   };
   return (
-    <div className="px-12 py-8 border border-indigo-700 bg-cyan-100 shadow-xl shadow-purple-300 flex flex-col justify-center items-center gap-4 rounded-2xl">
+    <div className="sm:px-12 sm:py-8 px-8 py-6 border border-indigo-700 bg-cyan-100 shadow-xl shadow-purple-300 flex flex-col justify-center items-center gap-4 rounded-2xl">
       <h3 className="text-lg text-indigo-600">Enter Your Name to Play</h3>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
