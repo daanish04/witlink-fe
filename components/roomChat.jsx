@@ -8,10 +8,13 @@ const RoomChat = ({ roomId }) => {
   const { socket } = useSocket();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -58,37 +61,41 @@ const RoomChat = ({ roomId }) => {
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto mb-1 sm:mb-2 space-y-1 pr-1 rounded-bl-xl border-b-2 border-indigo-500">
-        {messages.map((msg) => {
-          const isOwnMessage = msg.player.id === socket?.id;
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto mb-1 sm:mb-2 space-y-1 pr-1 rounded-bl-xl border-b-2 border-indigo-500 min-h-0"
+      >
+        <div className="space-y-1">
+          {messages.map((msg) => {
+            const isOwnMessage = msg.player.id === socket?.id;
 
-          return (
-            <div
-              key={msg.id}
-              className={`flex ${
-                isOwnMessage ? "justify-end" : "justify-start"
-              }`}
-            >
+            return (
               <div
-                className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-2 sm:px-3 py-1 sm:py-2 text-wrap break-words overflow-wrap-anywhere ${
-                  isOwnMessage
-                    ? "bg-blue-500 text-white"
-                    : "bg-white border border-gray-200 text-gray-800"
+                key={msg.id}
+                className={`flex ${
+                  isOwnMessage ? "justify-end" : "justify-start"
                 }`}
               >
-                {!isOwnMessage && (
-                  <div className="text-xs font-semibold mb-0.5 text-gray-600 break-words overflow-wrap-anywhere">
-                    {msg.player.name}
+                <div
+                  className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-2 sm:px-3 py-1 sm:py-2 text-wrap break-words overflow-wrap-anywhere ${
+                    isOwnMessage
+                      ? "bg-blue-500 text-white"
+                      : "bg-white border border-gray-200 text-gray-800"
+                  }`}
+                >
+                  {!isOwnMessage && (
+                    <div className="text-xs font-semibold mb-0.5 text-gray-600 break-words overflow-wrap-anywhere">
+                      {msg.player.name}
+                    </div>
+                  )}
+                  <div className="text-xs sm:text-sm break-words overflow-wrap-anywhere">
+                    {msg.message}
                   </div>
-                )}
-                <div className="text-xs sm:text-sm break-words overflow-wrap-anywhere">
-                  {msg.message}
                 </div>
               </div>
-            </div>
-          );
-        })}
-        <div ref={messagesEndRef} />
+            );
+          })}
+        </div>
       </div>
 
       {/* Message Input */}

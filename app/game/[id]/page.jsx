@@ -168,9 +168,9 @@ const GamePage = () => {
         </button>
       </header>
 
-      <div className="flex flex-col h-[calc(100vh-3rem)] sm:grid sm:grid-cols-15 overflow-hidden">
+      <div className="flex flex-col h-[calc(100vh-3rem)] sm:grid sm:grid-cols-15 overflow-hidden min-h-0">
         {/* Main Content */}
-        <main className="h-[60%] p-4 overflow-y-auto sm:p-8 sm:col-span-11 sm:h-auto">
+        <main className="h-[60%] p-4 overflow-y-auto sm:p-8 sm:col-span-11 sm:h-auto min-h-0">
           {room.status === "WAITING" ? (
             <RoomRules
               room={room}
@@ -186,9 +186,9 @@ const GamePage = () => {
         </main>
 
         {/* Sidebar: User List and Chat */}
-        <aside className="flex flex-row h-[40%] bg-gradient-to-r from-pink-200 to-indigo-100 border-t sm:flex-col sm:relative sm:border-r sm:col-span-4 sm:h-auto">
+        <aside className="flex flex-row h-[40%] bg-gradient-to-r from-pink-200 to-indigo-100 border-t sm:flex-col sm:relative sm:border-r sm:col-span-4 sm:h-auto min-h-0">
           {/* Players Section */}
-          <div className="w-4/10 flex flex-col p-2 border-r border-indigo-300 sm:w-auto sm:h-[55%] sm:pl-3 sm:pt-2 sm:pr-1 sm:border-r-0">
+          <div className="w-4/10 flex flex-col p-2 border-r border-indigo-300 sm:w-auto sm:h-[55%] sm:pl-3 sm:pt-2 sm:pr-1 sm:border-r-0 min-h-0">
             <div className="flex flex-row justify-between items-center pb-2">
               <h3 className="text-sm font-semibold sm:text-lg">Players</h3>
               <button
@@ -201,7 +201,7 @@ const GamePage = () => {
                 {window.innerWidth < 640 ? "Copy ID" : "Copy Room Id"}
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto sm:border-b-2 sm:border-indigo-500">
+            <div className="flex-1 overflow-y-auto sm:border-b-2 sm:border-indigo-500 min-h-0">
               <div className="flex flex-col gap-1 sm:gap-2">
                 {room.players.map((player) => (
                   <div
@@ -231,7 +231,7 @@ const GamePage = () => {
           </div>
 
           {/* Chat Section */}
-          <div className="w-6/10 p-2 sm:w-auto sm:h-[45%] sm:p-3 sm:pr-1">
+          <div className="w-6/10 p-2 sm:w-auto sm:h-[45%] sm:p-3 sm:pr-1 flex flex-col min-h-0">
             <RoomChat roomId={roomId} />
           </div>
         </aside>
