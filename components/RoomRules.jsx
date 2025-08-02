@@ -22,7 +22,7 @@ const RoomRules = ({ room, setRoom, isHost, socket, setLoading, loading }) => {
   };
 
   return (
-    <div className="flex flex-col gap-3 sm:gap-6 justify-center items-center h-full overflow-y-auto px-2 sm:px-0">
+    <div className="flex flex-col gap-3 sm:gap-6 justify-start items-center h-full overflow-y-auto px-2 sm:px-0">
       <h2 className="text-xl sm:text-4xl font-bold text-neutral-950 text-center">
         Set Room Rules
       </h2>

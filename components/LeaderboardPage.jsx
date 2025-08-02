@@ -1,4 +1,4 @@
-import { Info, Trophy } from "lucide-react";
+import { CrownIcon, Info, Trophy } from "lucide-react";
 import React, { useEffect } from "react";
 
 const LeaderboardPage = ({ room, setRoom, socket }) => {
@@ -59,6 +59,15 @@ const LeaderboardPage = ({ room, setRoom, socket }) => {
                     }
                   `}
               >
+                {index < 3 && (
+                  <CrownIcon
+                    className="sm:h-8 sm:w-8 h-6 w-6 absolute -top-3 -left-3 -rotate-50"
+                    fill={
+                      index === 0 ? "gold" : index === 1 ? "silver" : "#cd7f32"
+                    }
+                    strokeWidth={1.5}
+                  />
+                )}
                 <span className="text-xs sm:text-lg text-gray-900 flex-1">
                   {index + 1}. {player.name}
                   {player.id === room.hostId && (

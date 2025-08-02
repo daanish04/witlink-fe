@@ -28,7 +28,6 @@ const RoomChat = ({ roomId }) => {
           id: Date.now() + Math.random(),
           player,
           message,
-          timestamp: new Date(),
         },
       ]);
     };
@@ -49,13 +48,6 @@ const RoomChat = ({ roomId }) => {
     });
 
     setNewMessage("");
-  };
-
-  const formatTime = (timestamp) => {
-    return timestamp.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
   };
 
   return (
@@ -91,13 +83,6 @@ const RoomChat = ({ roomId }) => {
                 )}
                 <div className="text-xs sm:text-sm break-words overflow-wrap-anywhere">
                   {msg.message}
-                </div>
-                <div
-                  className={`text-xs text-right mt-0.5 ${
-                    isOwnMessage ? "text-blue-100" : "text-gray-500"
-                  }`}
-                >
-                  {formatTime(msg.timestamp)}
                 </div>
               </div>
             </div>
