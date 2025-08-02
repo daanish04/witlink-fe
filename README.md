@@ -1,73 +1,109 @@
-# WitLink Frontend
+# 🎮 WitLink - Real-time Multiplayer Quiz Game
 
-This is the frontend for **WitLink**, a real-time multiplayer quiz platform. Built with Next.js, React, and Tailwind CSS.
+Live trivia battles with AI-generated questions and real-time scoring, built with Next.js, Socket.io, and Gemini.  
+Think _Skribbl.io_, but for quizzes.
 
-## Features
+[🚀 Play Live](https://wit-link.vercel.app/) \
+[🛠 Backend Repo](https://github.com/daanish04/witlink-be)
 
-- **Real-time Multiplayer**: Join or create quiz rooms and play with friends.
-- **Player Registration**: Enter your name to start playing.
-- **Room Management**: Create public/private rooms, set topic, difficulty, and max players.
-- **Game Flow**:
-  - Lobby with room rules and player list.
-  - Host controls game start and settings.
-  - Real-time question answering with timers.
-  - Automatic leaderboard at game end.
-- **Socket.io Integration**: Live updates for player actions, scores, and game state.
-- **Error Handling**: User-friendly error and status messages.
+---
 
-## Getting Started
+## 🎮 Features
 
-1. Install dependencies:
+- ✅ Real-time multiplayer gameplay (Socket.io)
+- 🧠 Questions generated on-the-fly by **Google Gemini AI**
+- 📊 Live leaderboard, timer, chat, and host controls
+- 🧑‍🤝‍🧑 Room-based system
+- ✨ Clean UI with TailwindCSS + RadixUI
+
+---
+
+## 🧩 Tech Stack
+
+### Frontend
+
+- [Next.js 14](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Socket.io-client](https://socket.io/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Lucide Icons](https://lucide.dev/)
+
+### Backend (external repo)
+
+- Node.js + Express
+- Socket.io
+- In-memory game state
+- Gemini API integration
+
+🔗 **Backend code:** [🛠 WitLink Backend](https://github.com/daanish04/witlink-be)
+
+---
+
+## 📁 Project Structure
+
+```
+witLink/
+├── client/                # Next.js frontend
+│   ├── app/               # App router pages
+│   ├── components/        # React components
+│   ├── contexts/          # React contexts
+│   └── lib/               # Utility functions
+├── server/
+│   ├── index.js           # Node.js backend
+│   ├── socketHandlers.js  # Socket.io event handlers
+│   ├── rooms.js           # Room management
+│   ├── questions.js       # AI question generation
+│   ├── topics.js          # Quiz topics list
+│   └── routes.js          # REST API routes
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- WitLink backend server running (or deployed backend URL)
+
+### Installation
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Set environment variable for backend URL (if not using default):
+2. **Set environment variables**
+   Create a `.env.local` file:
 
-   - Create a `.env.local` file:
-     ```
-     NEXT_PUBLIC_SOCKET_URL=http://localhost:8000/
-     ```
+   ```env
+   NEXT_PUBLIC_SOCKET_URL=http://localhost:8000/
+   # For production, use your deployed backend URL
+   # NEXT_PUBLIC_SOCKET_URL=https://your-backend.onrender.com/
+   ```
 
-3. Run the development server:
+3. **Run the development server**
 
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
 
-## Scripts
+## ✨ Inspiration
 
-- `npm run dev` – Start development server
-- `npm run build` – Build for production
-- `npm run start` – Start production server
-- `npm run lint` – Lint code
+Built to learn Socket.io and to recreate the chaotic fun of Skribbl.io, but for trivia.
+No drawing skills required — just fast fingers and quick thinking.
 
-## Tech Stack
+---
 
-- [Next.js](https://nextjs.org/)
-- [React](https://react.dev/)
-- [Socket.io-client](https://socket.io/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Radix UI](https://www.radix-ui.com/docs/primitives/components/dialog)
-- [Sonner](https://sonner.emilkowal.ski/) (for toasts)
+## 🤝 Contributing
 
-## Folder Structure
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- `app/` – Main pages and routing
-- `components/` – UI and game logic components
-- `contexts/` – Socket context for real-time features
-- `lib/` – Utility functions
-- `globals.css` – Global styles
-
-## Future Improvements
-
-- Live room chat and Emoji reactions
-- Mobile responsiveness
-- UI enhancements (Progress bars, Leaderboard animations, room themes)
-- Confetti arts
-- Results exports (as screenshots or similar?)
-- Better handling of game ending (blocking host control until all players finish?)
-- Game modes - (Survival, Blitz, etc)
+---
