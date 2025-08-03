@@ -77,13 +77,13 @@ const GamePage = () => {
     socket.on("room-left", handlePlayerLeft);
 
     const handleRoomSaved = (room) => {
-      console.log("room before", room);
+      // console.log("room before", room);
       toast.success("Settings Saved");
       setRoom((prev) => ({
         ...prev,
         ...room,
       }));
-      console.log("room after", room);
+      // console.log("room after", room);
     };
     socket.on("room-saved", handleRoomSaved);
 
@@ -131,7 +131,7 @@ const GamePage = () => {
     };
     socket.on("room-error", handleRoomError);
 
-    console.log(room);
+    // console.log(room);
 
     return () => {
       socket.off("room-joined", handleRoomJoined);
