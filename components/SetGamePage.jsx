@@ -56,45 +56,80 @@ const SetGamePage = ({ player }) => {
     });
   };
   return (
-    <div>
-      <div className="sm:px-12 sm:py-8 py-8 px-6 border border-indigo-700 sm:w-md bg-blue-50 shadow-lg shadow-blue-300 flex flex-col justify-center items-center sm:gap-4 gap-2 rounded-2xl">
-        <p className="text-blue-600 font-semibold text-xl">Hello, {player}</p>
-        <Dialog>
-          <DialogTrigger className="w-full bg-blue-500 text-gray-100 px-2 py-1 border-2 border-blue-400 hover:bg-blue-600 cursor-pointer rounded">
-            Have a Link? Join Room
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Join A Room</DialogTitle>
-              <DialogDescription asChild>
-                <form className="flex flex-col gap-4" onSubmit={handleJoinRoom}>
-                  <label className="block text-gray-600 text-sm font-medium">
-                    Enter the room code:
-                  </label>
-                  <input
-                    type="text"
-                    value={roomId}
-                    onChange={(e) => setRoomId(e.target.value)}
-                    autoFocus
-                    className=" mb-2 py-1 px-2 text-md border border-indigo-600 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-blue-500 text-gray-100 px-2 py-1 border-2 border-blue-400 hover:bg-blue-600 cursor-pointer rounded"
-                  >
-                    Join
-                  </button>
-                </form>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-        <button
-          onClick={handleMakeRoom}
-          className="w-full py-1 px-2 text-lg text-gray-100 bg-green-600 rounded font-semibold border-2 border-green-300 hover:bg-green-700 cursor-pointer transition-colors duration-200 active:scale-98"
-        >
-          Make a Room
-        </button>
+    <div className="relative flex justify-center items-center min-h-[60vh]">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Floating orbs */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-cyan-400/30 rounded-full blur-lg animate-bounce"></div>
+        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-indigo-400/15 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-blue-300/25 rounded-full blur-xl animate-bounce"></div>
+        {/* Animated particles */}
+        <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-cyan-400 rounded-full animate-ping"></div>
+        <div
+          className="absolute top-1/2 right-1/4 w-1 h-1 bg-blue-300 rounded-full animate-ping"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-indigo-300 rounded-full animate-ping"
+          style={{ animationDelay: "2s" }}
+        ></div>
+      </div>
+      {/* Main Card */}
+      <div className="relative group w-full max-w-xl">
+        <div className="relative bg-transparent backdrop-blur-3xl shadow-blue-600 rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col items-center gap-8">
+          <div className="text-center space-y-8 w-full">
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent leading-tight">
+                Room Setup
+              </h1>
+              <p className="text-blue-100/80 text-lg font-light tracking-wide">
+                Hello, {player}
+              </p>
+            </div>
+            <div className="space-y-6 w-full">
+              <Dialog>
+                <DialogTrigger className="w-full py-4 px-8 text-lg font-semibold rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg border border-white/20 transition-all duration-300 group overflow-hidden text-center">
+                  Have a Link? Join Room
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Join A Room</DialogTitle>
+                    <DialogDescription asChild>
+                      <form
+                        className="flex flex-col gap-4"
+                        onSubmit={handleJoinRoom}
+                      >
+                        <label className="block text-blue-100/80 text-base font-medium text-left">
+                          Enter the room code:
+                        </label>
+                        <input
+                          type="text"
+                          value={roomId}
+                          onChange={(e) => setRoomId(e.target.value)}
+                          autoFocus
+                          className="w-full px-6 py-4 text-lg bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl text-white placeholder-blue-200/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300 hover:bg-white/20 disabled:opacity-50"
+                        />
+                        <button
+                          type="submit"
+                          className="w-full py-4 px-8 text-lg font-semibold rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg border border-white/20 transition-all duration-300 group overflow-hidden"
+                        >
+                          Join
+                        </button>
+                      </form>
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+              <button
+                onClick={handleMakeRoom}
+                className="w-full py-4 px-8 text-lg font-semibold rounded-2xl bg-gradient-to-r from-green-500 to-cyan-500 text-white shadow-lg border border-white/20 transition-all duration-300 group overflow-hidden"
+              >
+                Make a Room
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

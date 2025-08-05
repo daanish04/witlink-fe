@@ -3,6 +3,7 @@ import { DynaPuff } from "next/font/google";
 import "./globals.css";
 import { SocketProvider } from "@/contexts/SocketContext";
 import { Toaster } from "sonner";
+import Silk from "@/components/ui/Silk/Silk";
 
 const dynaPuff = DynaPuff({ subsets: ["latin"] });
 
@@ -16,9 +17,20 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${dynaPuff.className} antialiased`}>
         <SocketProvider>
-          <main className="bg-gradient-to-bl from-red-300 to-indigo-700 tex-black">
-            {children}
-          </main>
+          <div className="relative">
+            {/* Silk background */}
+            <div className="fixed inset-0 z-0">
+              <Silk
+                speed={5}
+                scale={1}
+                color="#0000FF"
+                noiseIntensity={1.5}
+                rotation={0}
+              />
+            </div>
+            {/* Content layer */}
+            <main className="relative z-10 text-white">{children}</main>
+          </div>
           <Toaster richColors position="top-center" />
         </SocketProvider>
       </body>
