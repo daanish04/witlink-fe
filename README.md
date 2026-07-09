@@ -13,8 +13,9 @@ Think _Skribbl.io_, but for quizzes.
 - ✅ Real-time multiplayer gameplay (Socket.io)
 - 🧠 Questions generated on-the-fly by **Google Gemini AI**
 - 📊 Live leaderboard, timer, chat, and host controls
-- 🧑‍🤝‍🧑 Room-based system
-- ✨ Clean UI with TailwindCSS + RadixUI
+- 🧑‍🤝‍🧑 Room-based system with shareable room codes
+- 🔁 Session Persistence and Connection Resilience with a 30 second grace period
+- ✨ Clean, responsive UI with TailwindCSS + RadixUI
 
 ---
 
@@ -22,7 +23,7 @@ Think _Skribbl.io_, but for quizzes.
 
 ### Frontend
 
-- [Next.js 14](https://nextjs.org/)
+- [Next.js 15](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Socket.io-client](https://socket.io/)
 - [Radix UI](https://www.radix-ui.com/)
@@ -93,7 +94,7 @@ witLink/
 
 ## ✨ Inspiration
 
-Built to learn Socket.io and to recreate the chaotic fun of Skribbl.io, but for trivia.
+Built to learn Socket.io and to recreate the chaotic fun of Skribbl.io, but for trivia.  
 No drawing skills required — just fast fingers and quick thinking.
 
 ---
