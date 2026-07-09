@@ -37,10 +37,11 @@ const QuestionsPage = ({ room, setRoom, socket }) => {
         );
         if (response.data && Array.isArray(response.data.questions)) {
           setQuestions(response.data.questions);
-          setCurrentQuestionIndex(0);
-          // Set initial time for the first question
+          // Resume from the server-tracked question index if reconnecting
+          const startIndex = room.reconnectQuestionIndex ?? 0;
+          setCurrentQuestionIndex(startIndex);
           setTimeLeft(timePerQuestion[room.difficulty] || 30);
-          setIsQuestionActive(true); // Start question as active
+          setIsQuestionActive(true);
         } else {
           setError("Invalid question data received from server.");
           setQuestions([]); // questions array to be empty on error
@@ -60,7 +61,7 @@ const QuestionsPage = ({ room, setRoom, socket }) => {
     if (room.status === "RUNNING" && room.id) {
       fetchQuestions();
     }
-  }, [room.status, room.id, room.difficulty]);
+  }, [room.status, room.id, room.difficulty, room.reconnectQuestionIndex]);
 
   // Timer effect
   useEffect(() => {

@@ -67,7 +67,7 @@ const RoomChat = ({ roomId }) => {
       >
         <div className="space-y-1">
           {messages.map((msg) => {
-            const isOwnMessage = msg.player.id === socket?.id;
+            const isOwnMessage = msg.player.id === socket?.auth?.sessionId;
 
             return (
               <div

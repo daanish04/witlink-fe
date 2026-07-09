@@ -2,8 +2,9 @@ import { CrownIcon, Info, Trophy } from "lucide-react";
 import React, { useEffect } from "react";
 
 const LeaderboardPage = ({ room, setRoom, socket }) => {
-  const currentPlayer = room.players.find((player) => player.id === socket.id);
+  const currentPlayer = room.players.find((player) => player.id === socket.auth?.sessionId);
   const currentPlayerScore = currentPlayer ? currentPlayer.score ?? 0 : 0;
+  const playersStillInGame = room.players.filter((p) => p.status === "INGAME").length;
 
   const sortedPlayers = [...room.players].sort(
     (a, b) => (b.score ?? 0) - (a.score ?? 0)
@@ -26,7 +27,7 @@ const LeaderboardPage = ({ room, setRoom, socket }) => {
 
   const handleGoBackToRoom = () => {
     if (!socket) return;
-    if (socket.id === room.hostId) {
+    if (socket.auth?.sessionId === room.hostId) {
       socket.emit("game-over", room.id);
     }
   };
@@ -53,7 +54,7 @@ const LeaderboardPage = ({ room, setRoom, socket }) => {
                 key={player.id}
                 className={`relative flex justify-between items-center p-2 sm:p-3 rounded-md transition-colors
                     ${
-                      player.id === socket.id
+                    player.id === socket.auth?.sessionId
                         ? "bg-blue-100 font-semibold border border-blue-400"
                         : "bg-gray-100"
                     }
@@ -93,13 +94,25 @@ const LeaderboardPage = ({ room, setRoom, socket }) => {
           </p>
         )}
       </div>
-      {socket.id === room.hostId ? (
-        <button
-          onClick={handleGoBackToRoom}
-          className="my-3 sm:my-6 bg-indigo-700 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-indigo-800 transition-colors text-sm sm:text-lg"
-        >
-          Back to Room Rules Page
-        </button>
+      {socket.auth?.sessionId === room.hostId ? (
+        <div className="my-3 sm:my-6 flex flex-col items-center gap-2">
+          <button
+            onClick={handleGoBackToRoom}
+            disabled={playersStillInGame > 0}
+            className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors text-sm sm:text-lg font-semibold ${
+              playersStillInGame > 0
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-indigo-700 text-white hover:bg-indigo-800"
+            }`}
+          >
+            Back to Room Rules Page
+          </button>
+          {playersStillInGame > 0 && (
+            <span className="text-xs sm:text-sm text-amber-700 bg-amber-50 border border-amber-300 rounded px-2 py-1">
+              Waiting for {playersStillInGame} player{playersStillInGame > 1 ? "s" : ""} to finish...
+            </span>
+          )}
+        </div>
       ) : (
         <span className="bg-yellow-50 border-b-4 border-yellow-400 text-red-600 p-2 sm:p-4 rounded-lg shadow my-3 sm:my-6 flex items-center gap-2 text-xs sm:text-base">
           <Info className="font-semibold h-3 w-3 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0" />

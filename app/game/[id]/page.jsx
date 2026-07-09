@@ -10,7 +10,7 @@ import { ArrowRight, LogOut } from "lucide-react";
 import { toast } from "sonner";
 
 const GamePage = () => {
-  const { socket } = useSocket();
+  const { socket, sessionId } = useSocket();
   const router = useRouter();
   const params = useParams();
   const roomId = params.id;
@@ -34,10 +34,16 @@ const GamePage = () => {
       return;
     }
 
-    socket.on("disconnect", () => {
-      socket.emit("leave-room", roomId);
-      return;
-    });
+    const handleConnect = () => {
+      toast.success("Reconnected!");
+      socket.emit("get-room-users", roomId);
+    };
+    const handleDisconnect = (reason) => {
+      console.log("Socket disconnected:", reason);
+      toast.warning("Lost connection. Reconnecting...");
+    };
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
 
     socket.emit("get-room-users", roomId);
 
@@ -54,7 +60,7 @@ const GamePage = () => {
         hostId: host,
         players,
       }));
-      if (host === socket.id) setIsHost(true);
+      if (host === sessionId) setIsHost(true);
       else setIsHost(false);
     };
     socket.on("room-users", handleRoomUsers);
@@ -75,6 +81,11 @@ const GamePage = () => {
       }));
     };
     socket.on("room-left", handlePlayerLeft);
+
+    const handlePlayerRenamed = ({ players }) => {
+      setRoom((prev) => ({ ...prev, players }));
+    };
+    socket.on("player-renamed", handlePlayerRenamed);
 
     const handleRoomSaved = (room) => {
       // console.log("room before", room);
@@ -131,13 +142,22 @@ const GamePage = () => {
     };
     socket.on("room-error", handleRoomError);
 
-    // console.log(room);
+    // Reconnect when switching back to this tab
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && !socket.connected) {
+        socket.connect();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
       socket.off("room-joined", handleRoomJoined);
       socket.off("room-users", handleRoomUsers);
       socket.off("player-joined", handlePlayerJoined);
       socket.off("room-left", handlePlayerLeft);
+      socket.off("player-renamed", handlePlayerRenamed);
       socket.off("room-saved", handleRoomSaved);
       socket.off("game-starting", handleGameStarting);
       socket.off("game-started", handleGameStarted);
@@ -145,9 +165,9 @@ const GamePage = () => {
       socket.off("back-to-room", handleBackToRoom);
       socket.off("room-closed", handleRoomClosed);
       socket.off("room-error", handleRoomError);
-      socket.off("disconnect");
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [socket, roomId]);
+  }, [socket, roomId, sessionId]);
 
   const handleLeaveRoom = () => {
     if (!socket) return;
@@ -198,7 +218,8 @@ const GamePage = () => {
                 }}
                 className="text-xs bg-blue-500 text-gray-100 px-1 py-0.5 border border-blue-400 hover:bg-blue-600 cursor-pointer rounded sm:text-sm"
               >
-                {window.innerWidth < 640 ? "Copy ID" : "Copy Room Id"}
+                <span className="sm:hidden">Copy ID</span>
+                <span className="hidden sm:inline">Copy Room Id</span>
               </button>
             </div>
             <div className="flex-1 overflow-y-auto sm:border-b-2 sm:border-indigo-500 min-h-0">
@@ -206,15 +227,20 @@ const GamePage = () => {
                 {room.players.map((player) => (
                   <div
                     key={player.id}
-                    className={`rounded-lg p-2 border flex flex-col gap-1 ${
-                      player.id === socket.id
+                    className={`rounded-lg p-2 border flex flex-col gap-1 transition-opacity duration-300 ${
+                      player.id === sessionId
                         ? "bg-yellow-100 border-green-400"
                         : "bg-cyan-100 border-indigo-200"
-                    } sm:p-3`}
+                    } ${!player.isOnline ? "opacity-40" : ""} sm:p-3`}
                   >
                     <span className="flex flex-row gap-1 items-center font-bold text-neutral-800 text-xs sm:gap-2 sm:text-base">
                       <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />{" "}
                       {player.name}
+                      {!player.isOnline && (
+                        <span className="text-[10px] text-red-400 font-semibold border border-red-300 rounded px-1 ml-1 bg-red-50 animate-pulse">
+                          offline
+                        </span>
+                      )}
                     </span>
                     <span className="text-xs text-blue-700 font-semibold sm:text-sm">
                       Score: {player.score ?? 0}
