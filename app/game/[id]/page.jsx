@@ -138,7 +138,7 @@ const GamePage = () => {
 
     const handleRoomError = (error) => {
       toast.error(error);
-      return;
+      setLoading(false);
     };
     socket.on("room-error", handleRoomError);
 
